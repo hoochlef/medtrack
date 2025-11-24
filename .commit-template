@@ -1,0 +1,9 @@
+# <type>: <short summary>
+#
+# Types: feat, fix, chore, refactor, docs, test, perf
+#
+# Summary should be ~50 characters, present tense
+# Example: feat: add patient search endpoint
+#
+# Body (optional)
+# Explain *what* and *why*, not *how*

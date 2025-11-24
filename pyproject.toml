@@ -1,0 +1,18 @@
+[project]
+name = "medtrack"
+version = "0.1.0"
+description = "Upload a picture of a medication and get the essential information instantly."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.2.8",
+]
+
+[dependency-groups]
+dev = [
+    "django-debug-toolbar>=6.1.0",
+    "python-dotenv>=1.2.1",
+]
+prod = [
+    "gunicorn>=23.0.0",
+]
