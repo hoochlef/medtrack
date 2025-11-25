@@ -143,3 +143,6 @@ if not TESTING:
         "debug_toolbar.middleware.DebugToolbarMiddleware",
         *MIDDLEWARE,
     ]
+
+# openFDA API key
+OPENFDA_API_KEY = os.getenv("OPENFDA_API_KEY")

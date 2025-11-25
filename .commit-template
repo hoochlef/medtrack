@@ -1,6 +1,16 @@
+
+
 # <type>: <short summary>
 #
-# Types: feat, fix, chore, refactor, docs, test, perf
+# Types: wip, feat, fix, chore, refactor, docs, test, perf
+#
+# wip: work in progress (experiment)
+# chore: bootstrapping project
+# refactor: Code changes that don’t add a feature or fix a bug, but improve structure, readability, or 
+# maintainability.  
+# **The rest are self explanatory**
+#
+#
 #
 # Summary should be ~50 characters, present tense
 # Example: feat: add patient search endpoint
