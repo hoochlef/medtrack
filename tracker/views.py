@@ -9,23 +9,19 @@ def index(request):
 def test_openfda(request):
     """Quick test to explore OpenFDA API response."""
     
-    # Test with a common drug
-    drug_name = "Ibuprofen"
+    drug_name = "glucosamine"
     
     # OpenFDA endpoint for drug labels
     url = "https://api.fda.gov/drug/label.json"
     
     params = {
+        'api_key': settings.OPENFDA_API_KEY,
         'search': f'openfda.brand_name:"{drug_name}"',
         'limit': 1
     }
     
-    headers = {
-        'Authorization': f'Bearer {settings.OPENFDA_API_KEY}' 
-    }
-    
     try:
-        response = requests.get(url, params=params, headers=headers)
+        response = requests.get(url, params=params)
         response.raise_for_status()
         data = response.json()
         
