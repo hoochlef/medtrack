@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
+    <title>Medication Lookup</title>
+</head>
+<body>
+
+    <form action="/" method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    <!-- {{form}} -->
+
+    <h1>{{form.medication_image.help_text}}</h1>
+
+    <div class="fieldWrapper">
+      {{ form.medication_image.label_tag }}
+      {{ form.medication_image }}
+      {{ form.medication_image.errors }}
+    </div>
+
+    <!-- Display Processing message -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                <h3>
+                    {% if 'error' in message.tags %}
+                        Error:
+                    {% else %}
+                        Result:
+                    {% endif %}
+                </h3>
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <input type="submit" value="Upload & Process" />
+</form>
+</body>
+</html>

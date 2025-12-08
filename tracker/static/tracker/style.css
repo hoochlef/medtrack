@@ -1,0 +1,50 @@
+.errorlist {
+    list-style: none;
+    color: red;
+    padding-left: 0;
+    margin: 0;
+    padding-top: 10px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4b1f4;
+    font-family: sans-serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.message {
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* Error and success messages */
+.message.error {
+    color: #b00020;
+    border: 2px solid #b00020;
+    background-color: #fdecea;
+}
+
+.message.success {
+    color: #006400;
+    border: 2px solid #006400;
+    background-color: #e6f4ea;
+}
+

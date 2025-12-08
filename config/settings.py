@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,13 @@ if not TESTING:
 
 # openFDA API key
 OPENFDA_API_KEY = os.getenv("OPENFDA_API_KEY")
+
+# from django.forms.renderers import TemplatesSetting
+
+
+# class CustomFormRenderer(TemplatesSetting):
+    
+#     field_template_name = "tracker/fields_template.html"
+
+
+# FORM_RENDERER = "config.settings.CustomFormRenderer"
