@@ -7,7 +7,6 @@ from config import settings
 from .forms import MedicationImageForm
 
 
-
 def medication_lookup(request):
     """view function intended for the image submission form"""
 
@@ -21,42 +20,41 @@ def medication_lookup(request):
                 # TODO: Process the image (OCR, etc...)
                 result = f"Image received: {image.name}, Size: {image.size} bytes"
                 messages.success(request, result)
-                
+
             except Exception as e:
                 messages.error(request, f"Error processing image: {str(e)}")
 
-            return redirect('tracker:medication_lookup')
+            return redirect("tracker:medication_lookup")
 
     else:
         form = MedicationImageForm()
 
-    return render(request, 'tracker/medication_lookup.html', {'form': form})
+    return render(request, "tracker/medication_lookup.html", {"form": form})
 
 
 def test_openfda(request):
     """Quick test to explore OpenFDA API response."""
-    
+
     drug_name = "glucosamine"
-    
+
     # OpenFDA endpoint for drug labels
     url = "https://api.fda.gov/drug/label.json"
-    
+
     params = {
-        'api_key': settings.OPENFDA_API_KEY,
-        'search': f'openfda.brand_name:"{drug_name}"',
-        'limit': 1
+        "api_key": settings.OPENFDA_API_KEY,
+        "search": f'openfda.brand_name:"{drug_name}"',
+        "limit": 1,
     }
-    
+
     try:
         response = requests.get(url, params=params)
         response.raise_for_status()
         data = response.json()
-        
-        return JsonResponse(data, json_dumps_params={'indent': 2})
-    
-    except requests.exceptions.RequestException as e:
-        return JsonResponse({'error': str(e)}, status=500)
 
+        return JsonResponse(data, json_dumps_params={"indent": 2})
+
+    except requests.exceptions.RequestException as e:
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 # def contact(request):
@@ -73,7 +71,7 @@ def test_openfda(request):
 
 #             recipients = ["email@example.me"]
 #             if cc_myself:
-#                 recipients.append(sender)    
+#                 recipients.append(sender)
 
 #             # send_mail(subject, message, sender, recipients)
 #             # redirect to a new URL:
