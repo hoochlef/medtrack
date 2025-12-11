@@ -13,6 +13,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "django-debug-toolbar>=6.1.0",
+    "djlint>=1.36.4",
     "python-dotenv>=1.2.1",
 ]
 prod = [
