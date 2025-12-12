@@ -16,7 +16,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f4b1f4;
+    /* background: #C1E3C1; */
+    background: #E6E0F8;
+    /* background: #DFF3EA; */
     font-family: sans-serif;
 }
 
