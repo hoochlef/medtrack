@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+import requests
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
-import requests
+from django.shortcuts import redirect, render
+
 from config import settings
 
 from .forms import MedicationImageForm
