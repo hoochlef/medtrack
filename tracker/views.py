@@ -1,7 +1,7 @@
 import requests
 from django.contrib import messages
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 
 from config import settings
 
@@ -24,8 +24,6 @@ def medication_lookup(request):
 
             except Exception as e:
                 messages.error(request, f"Error processing image: {str(e)}")
-
-            return redirect("tracker:medication_lookup")
 
     else:
         form = MedicationImageForm()

@@ -28,8 +28,8 @@ venv/
 .env
 .env.local
 
-# VS Code
-.vscode/
+# # VS Code
+# .vscode/
 
 # Logs
 *.log
@@ -37,3 +37,6 @@ venv/
 # Linux
 *.swp
 *~
+
+# Ruff
+.ruff_cache/
