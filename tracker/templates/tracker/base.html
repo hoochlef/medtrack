@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block description %}Upload a picture of a medication and get the essential information instantly.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}medication, usage, caution{% endblock %}">
+    <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
+    <title>{% block title %}{% endblock %} ~ Medtrack</title>
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

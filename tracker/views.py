@@ -19,7 +19,7 @@ def medication_lookup(request):
 
             try:
                 # TODO: Process the image (OCR, etc...)
-                result = f"Image received: {image.name}, Size: {image.size} bytes"
+                result = f"Image received: {image.name}, Size: {image.size} bytes, Format: {image.formatj}"
                 messages.success(request, result)
 
             except Exception as e:
