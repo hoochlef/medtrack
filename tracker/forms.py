@@ -1,4 +1,5 @@
 from django import forms
+from PIL import Image
 
 
 class MedicationImageForm(forms.Form):
@@ -8,24 +9,27 @@ class MedicationImageForm(forms.Form):
         help_text="Upload a clear photo showing the medication name",
         error_messages={
             "required": "Please select an image to upload.",
-            "invalid_image": "Please upload a valid image file (JPG, PNG, etc.).",
-            "invalid": "Please upload a valid image file (JPG, PNG, etc.).",
+            "invalid_image": "Please upload a valid image file.",
         },
     )
 
+    def clean_medication_image(self):
+        """Additional validation for the image."""
+        image_file = self.cleaned_data.get("medication_image")
 
-# def clean_medication_image(self):
-#         """Additional validation for the image."""
-#         image = self.cleaned_data.get('medication_image')
+        if image_file:
+            if image_file.size > 5 * 1024 * 1024:
+                raise forms.ValidationError("Image file too large (max 5MB).")
 
-#         if image:
-#             # Check file size (e.g., max 5MB)
-#             if image.size > 5 * 1024 * 1024:
-#                 raise forms.ValidationError('Image file too large (max 5MB).')
+            try:
+                img = Image.open(image_file)  # Open file to check format
 
-#             # Check file type
-#             allowed_types = ['image/jpeg', 'image/png', 'image/jpg']
-#             if image.content_type not in allowed_types:
-#                 raise forms.ValidationError('Only JPG and PNG images are allowed.')
+                if img.format.upper() not in ["JPEG", "PNG", "JPG"]:
+                    raise forms.ValidationError("Only JPG and PNG images are allowed.")
 
-#         return image
+            except forms.ValidationError:
+                raise
+            except Exception:
+                raise forms.ValidationError("Invalid or corrupted image file.")
+
+        return image_file
