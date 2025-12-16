@@ -3,8 +3,7 @@
 {% block content %}
     <form action="/" method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
-        <!-- {{form}} -->
-        <h1>{{ form.medication_image.help_text }}</h1>
+        <h1>{{ form.medication_image.help_text|default:"Medication Lookup" }}</h1>
         <div class="fieldWrapper">
             {{ form.medication_image.label_tag }}
             {{ form.medication_image }}
