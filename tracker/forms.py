@@ -25,7 +25,7 @@ class MedicationImageForm(forms.Form):
                 img = Image.open(image_file)  # Open file to check format
 
                 if img.format.upper() not in ["JPEG", "PNG", "JPG"]:
-                    raise forms.ValidationError("Only JPG and PNG images are allowed.")
+                    raise forms.ValidationError("Allowed image formats: PNG, JPG, JPEG")
 
             except forms.ValidationError:
                 raise

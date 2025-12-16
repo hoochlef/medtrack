@@ -1,7 +1,8 @@
 import requests
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
+from django.urls import reverse
 
 from config import settings
 
@@ -20,10 +21,11 @@ def medication_lookup(request):
             try:
                 # TODO: Process the image (OCR, etc...)
                 result = f"Image received: {image.name}, Size: {image.size} bytes"
-                messages.success(request, result)
-
             except Exception as e:
                 messages.error(request, f"Error processing image: {str(e)}")
+            else:
+                messages.success(request, result)
+                return HttpResponseRedirect(reverse("tracker:medication_lookup"))
 
     else:
         form = MedicationImageForm()
