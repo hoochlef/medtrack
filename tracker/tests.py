@@ -1,12 +1,14 @@
 import io
 
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import Client, TestCase
+from django.test import TestCase
 from django.urls import reverse
 from PIL import Image
 
 
 class MedicationLookupViewTests(TestCase):
+    url = reverse("tracker:medication_lookup")
+
     def create_test_image(self, format="PNG", size=(100, 100)):
         """Helper to create valid test images"""
         file = io.BytesIO()
@@ -24,11 +26,6 @@ class MedicationLookupViewTests(TestCase):
         return SimpleUploadedFile(
             filename, b"This is not an image", content_type="image/png"
         )
-
-    def setUp(self):
-        """Run before each test"""
-        self.client = Client()
-        self.url = reverse("tracker:medication_lookup")
 
     def test_get_request_shows_form(self):
         """Test that GET request displays the form"""
