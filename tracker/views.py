@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
 from config import settings
+from tracker.helpers import convert_image_to_nump_array
+from tracker.services import run_ocr
 
 from .forms import MedicationImageForm
 
@@ -16,10 +18,11 @@ def medication_lookup(request):
 
         if form.is_valid():
             image = form.cleaned_data["medication_image"]
-
             try:
-                # TODO: Process the image (OCR, etc...)
-                result = f"Image received: {image.name}, Size: {image.size} bytes"
+                image_array = convert_image_to_nump_array(image)
+
+                text_list = run_ocr(image_array)
+                result = ", ".join(text_list) if text_list else "No text found."
 
             except Exception as e:
                 messages.error(request, f"Error processing image: {str(e)}")
