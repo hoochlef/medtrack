@@ -1,29 +1,32 @@
 {% extends "tracker/base.html" %}
 {% block title %}Medication Lookup{% endblock %}
 {% block content %}
-    <form action="/" method="post" enctype="multipart/form-data" novalidate>
-        {% csrf_token %}
-        <h1>{{ form.medication_image.help_text|default:"Medication Lookup" }}</h1>
-        <div class="fieldWrapper">
-            {{ form.medication_image.label_tag }}
-            {{ form.medication_image }}
-            {{ form.medication_image.errors }}
-        </div>
-        <!-- Display messages -->
+    <div class="container">
+        <form action="/" method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <h1>{{ form.medication_image.help_text|default:"Medication Lookup" }}</h1>
+            <div class="fieldWrapper">
+                {{ form.medication_image.label_tag }}
+                {{ form.medication_image }}
+                {{ form.medication_image.errors }}
+            </div>
+            <input type="submit" value="Upload & Process" />
+        </form>
         {% if messages %}
-            {% for message in messages %}
-                <div class="message {{ message.tags }}">
-                    <h3>
-                        {% if 'error' in message.tags %}
-                            Error:
-                        {% else %}
-                            Result:
-                        {% endif %}
-                    </h3>
-                    <p>{{ message }}</p>
-                </div>
-            {% endfor %}
+            <div class="results-container">
+                {% for message in messages %}
+                    <div class="result-card {{ message.tags }}">
+                        <h2 class="result-title">
+                            {% if 'error' in message.tags %}
+                                Error
+                            {% else %}
+                                Medication Information
+                            {% endif %}
+                        </h2>
+                        <div class="result-content">{{ message|linebreaks }}</div>
+                    </div>
+                {% endfor %}
+            </div>
         {% endif %}
-        <input type="submit" value="Upload & Process" />
-    </form>
+    </div>
 {% endblock %}

@@ -1,25 +1,29 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 20px;
     background-color: #2B193F;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Helvetica, Arial, sans-serif;
     color: #e0e0e0;
 }
 
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 form {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 600px;
     padding: 40px;
     background: #2B193F;
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    margin-bottom: 24px;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -31,7 +35,6 @@ h1 {
     text-align: center;
 }
 
-/* Field Styling */
 .fieldWrapper {
     display: flex;
     flex-direction: column;
@@ -54,13 +57,23 @@ input[type="file"] {
     background: #1f1b2e;
     cursor: pointer;
     transition: border-color 0.2s;
+    color: #e0e0e0;
 }
 
 input[type="file"]:hover {
     border-color: #9b87f5;
 }
 
-/* Error List (Django style) */
+input[type="file"]::file-selector-button {
+    background: #4a4458;
+    color: #e0e0e0;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
 ul.errorlist {
     list-style: none;
     margin: 8px 0 0;
@@ -73,7 +86,6 @@ ul.errorlist li {
     font-weight: 500;
 }
 
-/* Submit Button */
 input[type="submit"] {
     background-color: #6c5ce7;
     color: white;
@@ -95,31 +107,52 @@ input[type="submit"]:active {
     transform: scale(0.98);
 }
 
-/* Messages */
-.message {
-    margin-bottom: 20px;
-    padding: 16px;
-    border-radius: 12px;
-    font-size: 0.95rem;
+.results-container {
+    width: 100%;
 }
 
-.message.error {
+.result-card {
+    padding: 40px;
+    border-radius: 16px;
+    background: #1f1b2e;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.result-card.error {
     background-color: #3d1f1f;
-    border: 1px solid #8b3a3a;
+    border-color: #8b3a3a;
+}
+
+.result-card.success {
+    background-color: #1f1b2e;
+    border-color: #6c5ce7;
+}
+
+.result-title {
+    margin: 0 0 20px 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f0f0f0;
+}
+
+.result-card.error .result-title {
     color: #ff8080;
 }
 
-.message.success {
-    background-color: #1f3d1f;
-    border: 1px solid #3a8b3a;
-    color: #80ff80;
+.result-content {
+    color: #d0d0d0;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
-.message h3 {
-    margin: 0 0 4px 0;
-    font-size: 1rem;
+.result-content p {
+    margin: 0 0 16px 0;
 }
 
-.message p {
-    margin: 0;
+.result-content p:last-child {
+    margin-bottom: 0;
 }
