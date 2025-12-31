@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 
 from config import settings
 from tracker.helpers import convert_image_to_nump_array
-from tracker.services import run_ocr
+from tracker.services import openfda_lookup, run_ocr
 
 from .forms import MedicationImageForm
 
@@ -18,17 +18,18 @@ def medication_lookup(request):
 
         if form.is_valid():
             image = form.cleaned_data["medication_image"]
-            try:
-                image_array = convert_image_to_nump_array(image)
-
-                text_list = run_ocr(image_array)
-                result = ", ".join(text_list) if text_list else "No text found."
-
-            except Exception as e:
-                messages.error(request, f"Error processing image: {str(e)}")
-            else:
-                messages.success(request, result)
-                return redirect("tracker:medication_lookup")
+            # 1. convert uploaded image to a format that ocr model can work with
+            image_array = convert_image_to_nump_array(image)
+            # 2. run ocr on the image
+            text_list = run_ocr(image_array)
+            ocr_result = ", ".join(text_list) if text_list else "No text found."
+            # TODO: 3. add textual model layer to extract the active ingredient from
+            # the OCR result
+            # 4. look for medication info in openFDA 
+            result = openfda_lookup("glucosamine")
+            medication_purpose = result["results"][0]["purpose"][0]
+            messages.success(request, medication_purpose)
+            return redirect("tracker:medication_lookup")
 
     else:
         form = MedicationImageForm()
@@ -39,7 +40,7 @@ def medication_lookup(request):
 def test_openfda(request):
     """Quick test to explore OpenFDA API response."""
 
-    drug_name = "glucosamine"
+    drug_name = "menthol"
 
     # OpenFDA endpoint for drug labels
     url = "https://api.fda.gov/drug/label.json"

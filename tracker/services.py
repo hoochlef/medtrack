@@ -1,4 +1,7 @@
+import requests
 from paddleocr import PaddleOCR
+
+from config import settings
 
 _ocr_engine = PaddleOCR(
     text_detection_model_name="PP-OCRv5_mobile_det",
@@ -16,6 +19,7 @@ _ocr_engine = PaddleOCR(
 
 
 def run_ocr(image_array):
+    """run ocr on uploaded image"""
     result = _ocr_engine.predict(image_array)
 
     if result and len(result) > 0:
@@ -26,3 +30,22 @@ def run_ocr(image_array):
             return first_page["rec_texts"]
 
     return []
+
+
+def openfda_lookup(drug_name):
+    """check openfda for relevant
+    info using the extracted `drug name`"""
+
+    # OpenFDA endpoint for drug labels
+    url = "https://api.fda.gov/drug/label.json"
+
+    params = {
+        "api_key": settings.OPENFDA_API_KEY,
+        "search": f'openfda.brand_name:"{drug_name}"',
+        "limit": 1,
+    }
+
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    return data
