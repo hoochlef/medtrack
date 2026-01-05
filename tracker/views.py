@@ -16,7 +16,7 @@ def medication_lookup(request):
 
         if form.is_valid():
             image = form.cleaned_data["medication_image"]
-            
+
             # 1. convert uploaded image to a format that ocr model can work with
             image_array = convert_image_to_nump_array(image)
 
@@ -26,7 +26,7 @@ def medication_lookup(request):
             # 3. pass the ocr result to the model
             slm_response = run_custom_slm(ocr_result)
 
-            # Convert markdown to HTML
+            # 4. convert markdown to HTML
             html_response = markdown.markdown(slm_response)
 
             messages.success(request, html_response, extra_tags="safe")

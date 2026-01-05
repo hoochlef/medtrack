@@ -156,3 +156,50 @@ input[type="submit"]:active {
 .result-content p:last-child {
     margin-bottom: 0;
 }
+
+input[type="submit"]:disabled {
+    background-color: #4a4458;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.skeleton-card {
+    background: #1f1b2e;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #2a2438 25%, #3d3551 50%, #2a2438 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.skeleton-title {
+    height: 28px;
+    width: 60%;
+    margin-bottom: 24px;
+}
+
+.skeleton-line {
+    height: 16px;
+    width: 100%;
+}
+
+.skeleton-line.short {
+    width: 70%;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.hidden {
+    display: none;
+}
