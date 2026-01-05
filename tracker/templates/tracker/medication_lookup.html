@@ -23,7 +23,7 @@
                                 Medication Information
                             {% endif %}
                         </h2>
-                        <div class="result-content">{{ message|linebreaks }}</div>
+                        <div class="result-content">{{ message|safe }}</div>
                     </div>
                 {% endfor %}
             </div>
