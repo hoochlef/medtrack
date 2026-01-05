@@ -1,7 +1,5 @@
-import requests
+from ollama import ChatResponse, chat
 from paddleocr import PaddleOCR
-
-from config import settings
 
 _ocr_engine = PaddleOCR(
     text_detection_model_name="PP-OCRv5_mobile_det",
@@ -20,32 +18,34 @@ _ocr_engine = PaddleOCR(
 
 def run_ocr(image_array):
     """run ocr on uploaded image"""
-    result = _ocr_engine.predict(image_array)
-
+    try:
+        result = _ocr_engine.predict(image_array)
+    except RuntimeError:
+        print("Runtime Error")
     if result and len(result) > 0:
         first_page = result[0]
 
         # pull the list of recognized strings directly
         if "rec_texts" in first_page:
-            return first_page["rec_texts"]
+            return (
+                ", ".join(first_page["rec_texts"])
+                if first_page["rec_texts"]
+                else "No text found."
+            )
 
     return []
 
 
-def openfda_lookup(drug_name):
-    """check openfda for relevant
-    info using the extracted `drug name`"""
-
-    # OpenFDA endpoint for drug labels
-    url = "https://api.fda.gov/drug/label.json"
-
-    params = {
-        "api_key": settings.OPENFDA_API_KEY,
-        "search": f'openfda.brand_name:"{drug_name}"',
-        "limit": 1,
-    }
-
-    response = requests.get(url, params=params)
-    data = response.json()
-
-    return data
+def run_custom_slm(ocr_output):
+    """A function to run the small language model on the ocr output and return a
+    result"""
+    response: ChatResponse = chat(
+        model="llama3.2:3b-med-v0",
+        messages=[
+            {
+                "role": "user",
+                "content": f"{ocr_output}",
+            },
+        ],
+    )
+    return response.message.content

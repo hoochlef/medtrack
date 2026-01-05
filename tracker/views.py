@@ -1,11 +1,8 @@
-import requests
 from django.contrib import messages
-from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
-from config import settings
 from tracker.helpers import convert_image_to_nump_array
-from tracker.services import openfda_lookup, run_ocr
+from tracker.services import run_custom_slm, run_ocr
 
 from .forms import MedicationImageForm
 
@@ -21,42 +18,13 @@ def medication_lookup(request):
             # 1. convert uploaded image to a format that ocr model can work with
             image_array = convert_image_to_nump_array(image)
             # 2. run ocr on the image
-            text_list = run_ocr(image_array)
-            ocr_result = ", ".join(text_list) if text_list else "No text found."
-            # TODO: 3. add textual model layer to extract the active ingredient from
-            # the OCR result
-            # 4. look for medication info in openFDA 
-            result = openfda_lookup("glucosamine")
-            medication_purpose = result["results"][0]["purpose"][0]
-            messages.success(request, medication_purpose)
+            ocr_result = run_ocr(image_array)
+            # 3. pass the ocr result to the model
+            slm_response = run_custom_slm(ocr_result)
+            messages.success(request, slm_response)
             return redirect("tracker:medication_lookup")
 
     else:
         form = MedicationImageForm()
 
     return render(request, "tracker/medication_lookup.html", {"form": form})
-
-
-def test_openfda(request):
-    """Quick test to explore OpenFDA API response."""
-
-    drug_name = "menthol"
-
-    # OpenFDA endpoint for drug labels
-    url = "https://api.fda.gov/drug/label.json"
-
-    params = {
-        "api_key": settings.OPENFDA_API_KEY,
-        "search": f'openfda.brand_name:"{drug_name}"',
-        "limit": 1,
-    }
-
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
-
-        return JsonResponse(data, json_dumps_params={"indent": 2})
-
-    except requests.exceptions.RequestException as e:
-        return JsonResponse({"error": str(e)}, status=500)
