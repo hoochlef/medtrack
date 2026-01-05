@@ -9,6 +9,8 @@
 
 [**Blog post**](https://hoochlef.github.io/blog/medtrack-part-one/) | [**Screenshots**](https://github.com/hoochlef/medtrack/tree/main/screenshots)
 
+Upload a picture of a medication and get the essential information.
+
 > [!CAUTION]
 > **Medical Disclaimer:** This project is for **educational and technical demonstration purposes only**. The information provided by the AI should not be used for medical diagnosis, treatment, or as a substitute for professional medical advice. Always consult a healthcare professional for medication concerns.
 
