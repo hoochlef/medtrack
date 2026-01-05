@@ -34,13 +34,13 @@ Upload a picture of a medication and get the essential information.
 ollama pull llama3.2:3b
 ```
 
-2. **Setup a [Modelfile](https://docs.ollama.com/modelfile) with a customized prompt**
+2.**Setup a [Modelfile](https://docs.ollama.com/modelfile) with a customized prompt**
 
 See [Modelfile](https://github.com/hoochlef/medtrack/tree/main/Modelfile) used in this project.
 
 ## Getting Started
 
-1. **Clone the repository**
+1.**Clone the repository**
 
 ```bash
 git clone https://github.com/hoochlef/medtrack
@@ -48,7 +48,7 @@ cd medtrack
 
 ```
 
-1. **Sync dependencies**
+2.**Sync dependencies**
 
 This command creates a virtual environment and installs all dependencies automatically.
 
@@ -59,7 +59,7 @@ uv sync
 
 For the folks that don't use uv, there's a ```requirements.txt``` file at the root of the project.
 
-1. **Environment Setup**
+3.**Environment Setup**
 
 Copy the example environment file and update your variables.
 
@@ -68,7 +68,7 @@ cp .env.example .env
 
 ```
 
-1. **Start Development Server**
+4.**Start Development Server**
 
 ```bash
 uv run python manage.py runserver
